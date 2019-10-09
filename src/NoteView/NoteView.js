@@ -1,25 +1,39 @@
 import React from 'react';
 import Note from '../Note/Note';
+import NotefulContext from '../NotefulContext';
+import {findNote} from '../notes-helpers';
 import './NoteView.css'
 
-export default function NoteView(props) {
-    return (
-        <section className = 'noteView'>
-            <Note 
-                id = {props.note.id}
-                name = {props.note.name}
-                modified = {props.note.modified}/>
-            <div className='noteView-content'>
-                {props.note.content.split(/\n \r|\n/).map((para, i) =>
-                    <p key={i}>{para}</p>
-                )}
-            </div>
-        </section>
-    )
-}
+export default class NoteView extends React.Component {
+    static defaultProps = {
+        match: {
+            params: {}
+        }
+    }
+    static contextType = NotefulContext
 
-NoteView.defaultProps = {
-    note: {
-        content: '',
+    handleDeleteNote = noteId => {
+        this.props.history.push('/')
+    }
+
+    render() {
+        const {notes = []} = this.context
+        const {noteId} = this.props.match.params
+        const note = findNote(notes, noteId) || {content: ''}
+        return (
+            <section className = 'noteView'>
+                <Note 
+                    id = {note.id}
+                    name = {note.name}
+                    modified = {note.modified}
+                    onDeleteNote = {this.handleDeleteNote}
+                />
+                <div className='noteView-content'>
+                    {note.content.split(/\n \r|\n/).map((para, i) =>
+                        <p key={i}>{para}</p>
+                    )}
+                </div>
+            </section>
+        )
     }
 }
