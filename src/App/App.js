@@ -113,6 +113,8 @@ class App extends React.Component {
       folders: this.state.folders,
       notes: this.state.notes,
       deleteNote: this.handleDeleteNote,
+      addNote: this.addNote,
+      addFolder: this.addFolder
       // deleteFolder: this.deleteFolder
     };
     return(

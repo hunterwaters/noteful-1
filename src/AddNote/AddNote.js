@@ -3,6 +3,7 @@ import React from 'react';
 import ValidationError from '../ValidationError';
 import config from '../config';
 import NotefulContext from '../NotefulContext';
+import moment from 'moment';
 import './AddNote.css';
 
 export default class AddNote extends React.Component {
@@ -27,16 +28,23 @@ export default class AddNote extends React.Component {
         };
     }
 
-    updateName(name) {
+    updateName(name, modified) {
+        this.updateModified(modified);
         this.setState({name: {value: name, touched: true}});
     }
 
-    updateContent(content) {
-        this.setState({content: {value: content, touched: true}});
+    updateModified(modified) {
+        this.setState({modified: modified});
     }
 
-    updateFolderId(folder) {
-        this.setState({folder: {value: folder, touched: true}});
+    updateContent(content, modified) {
+        this.updateModified(modified);
+        this.setState({content: {value: content, touched: true}});
+        console.log(this.state.modified);
+    }
+
+    updateFolderId(folderId) {
+        this.setState({folderId: {value: folderId, touched: true}});
     }
 
     handleSubmit(event) {
@@ -77,6 +85,9 @@ export default class AddNote extends React.Component {
         })
     }
 
+    timeStamp() {
+        moment().ToDate()
+    }
 
     validateName() {
         const name = this.state.name.value.trim();
@@ -97,7 +108,8 @@ export default class AddNote extends React.Component {
     render() {
         const nameError = this.validateName();
         const contentError = this.validateContent();
-        return (
+        const modified = moment().toDate();
+         return (
             <form className = "newNote"
                 onSubmit = {(e) => this.handleSubmit(e)}>
                 <h2>Create a new note!</h2>
@@ -108,7 +120,7 @@ export default class AddNote extends React.Component {
                     className = "noteCreation"
                     name = "name" 
                     id = "name" 
-                    onChange = {e => this.updateName(e.target.value)}/>
+                    onChange = {e => this.updateName(e.target.value, modified)}/>
                 {this.state.name.touched && (
                     <ValidationError message = {nameError}/>
                 )}
@@ -118,7 +130,7 @@ export default class AddNote extends React.Component {
                     className = "noteContentCreation"
                     name = "Content" 
                     id = "name" 
-                    onChange = {e => this.updateContent(e.target.value)}/>
+                    onChange = {e => this.updateContent(e.target.value, modified)}/>
                 {this.state.name.touched && (
                     <ValidationError message = {contentError}/>
                 )}
