@@ -2,6 +2,8 @@ import React from 'react';
 import Button from '../Button/Button';
 import NotefulContext from '../NotefulContext';
 import {findNote, findFolder} from '../notes-helpers';
+// import AddNote from '../AddNote/AddNote';
+// import AddFolder from '../AddFolder/AddFolder';
 import './NoteViewFolder.css';
 
 export default class NoteViewFolder extends React.Component {
@@ -22,6 +24,7 @@ export default class NoteViewFolder extends React.Component {
         const folder = findFolder(folders, note.folderId)
         return (
             <div className = 'noteViewFolder'>
+                {/* <AddFolder /> */}
                 <Button
                     button = 'button'
                     role = 'link'

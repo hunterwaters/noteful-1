@@ -7,6 +7,8 @@ import NoteListFolder from '../NoteListFolder/NoteListFolder';
 import Header from '../Header/Header';
 import NotefulContext from '../NotefulContext';
 import config from '../config';
+import AddNote from '../AddNote/AddNote';
+import AddFolder from '../AddFolder/AddFolder';
 import '../App/App.css';
 
 class App extends React.Component {
@@ -60,14 +62,8 @@ class App extends React.Component {
           path = '/note/:noteId'
           component = {NoteViewFolder}
         />
-        <Route 
-          path = '/add-folder' 
-          component = {NoteViewFolder} 
-        />
-        <Route 
-          path = '/add-note' 
-          component = {NoteViewFolder} 
-        />
+        
+        
       </>
     );
   }
@@ -87,6 +83,14 @@ class App extends React.Component {
                 <Route
                     path="/note/:noteId"
                     component = {NoteView}
+                />
+                <Route 
+                  path = '/add-folder' 
+                  component = {AddFolder} 
+                />
+                <Route 
+                  path = '/add-note' 
+                  component = {AddNote} 
                 />
             </>
         );
