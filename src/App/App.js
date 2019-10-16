@@ -44,6 +44,12 @@ class App extends React.Component {
     });
   };
 
+  // handleDeleteFolder = folderId => {
+  //   this.setState({
+  //     folders: this.state.folders.filter(folder => folder.id !== folderId)
+  //   });
+  // }
+
   renderFolderRoutes() {
     const {notes, folders} = this.state;
     console.log(notes);
@@ -62,8 +68,14 @@ class App extends React.Component {
           path = '/note/:noteId'
           component = {NoteViewFolder}
         />
-        
-        
+        <Route 
+          path = '/add-folder' 
+          component = {NoteViewFolder} 
+        />
+        <Route 
+          path = '/add-note' 
+          component = {NoteViewFolder} 
+        />
       </>
     );
   }
@@ -100,7 +112,8 @@ class App extends React.Component {
     const contextValue = {
       folders: this.state.folders,
       notes: this.state.notes,
-      deleteNote: this.handleDeleteNote
+      deleteNote: this.handleDeleteNote,
+      // deleteFolder: this.deleteFolder
     };
     return(
       <NotefulContext.Provider value = {contextValue}>

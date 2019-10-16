@@ -1,9 +1,12 @@
 import React from 'react';
 // import PropType from 'prop-type';
 import ValidationError from '../ValidationError';
+import config from '../config';
+import NotefulContext from '../NotefulContext';
 import './AddNote.css';
 
 export default class AddNote extends React.Component {
+    static contextType = NotefulContext; 
     constructor(props) {
         super(props);
         this.state = {
@@ -13,7 +16,10 @@ export default class AddNote extends React.Component {
             },
             id: '',
             modified: '',
-            
+            folderId: {
+                value: '',
+                touched: false
+            },
             content: {
                 value: '',
                 touched: false
@@ -26,22 +32,49 @@ export default class AddNote extends React.Component {
     }
 
     updateContent(content) {
-        this.setState({content: {value: content, touched: true}})
+        this.setState({content: {value: content, touched: true}});
+    }
+
+    updateFolderId(folder) {
+        this.setState({folder: {value: folder, touched: true}});
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        const name = this.state;
-        const content = this.state;
-    
-        console.log('Name: ', name.value);
-        console.log('Content: ', content.value);
-        // createNoteId() {
-        //     let min = 100000;
-        //     let max = 1000000;
-        //     let noteId = Math.floor(Math.random() * (max - min + 1) + min);
-        //     this.setState({id: noteId});
-        // }
+        const note = {
+            id: this.state.id,
+            name: this.state.name.value,
+            modified: this.state.modified,
+            content: this.state.content.value
+        }
+        const url = config.API_ENDPOINT + '/notes';
+        console.log(url)
+        // this.setState({ error: null })
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(note)
+        })
+        .then(res => {
+            if (!res.ok) {
+                return res.json().then(error => {
+                    throw error
+                })
+            }
+            return res.json()
+        })
+        .then(data => {
+            this.state.name.value = ''
+            this.state.id = ''
+            this.state.modified = ''
+            this.state.folderId.value = ''
+            this.state.content.value = ''
+            this.context.addNote(data)
+            this.props.history.push('/')
+        })
     }
 
 
