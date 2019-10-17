@@ -3,6 +3,7 @@ import React from 'react';
 import ValidationError from '../ValidationError';
 import config from '../config';
 import NotefulContext from '../NotefulContext';
+import NotefulError from '../NotefulError';
 import './AddFolder.css';
 
 export default class AddFolder extends React.Component {
@@ -59,6 +60,7 @@ export default class AddFolder extends React.Component {
             this.state.name.value = ''
             this.state.id = ''
             this.context.addFolder(data)
+            console.log(this.context);
             this.props.history.push('/')
         })
     }
@@ -78,26 +80,28 @@ export default class AddFolder extends React.Component {
         return (
             <form className = "newFolder"
                 onSubmit = {(e) => this.handleSubmit(e)}>
-                <h2>Create a new folder!</h2>
-                <div className="folderCreation__hint">* required field</div>
-                <label htmlFor="name">Folder Name *</label> 
-                <input 
-                    type = "text" 
-                    className = "folderCreation"
-                    name = "name" 
-                    id = "name" 
-                    onChange = {e => this.updateName(e.target.value)}/>
-                {this.state.name.touched && (
-                    <ValidationError message = {nameError}/>
-                )}
-                <button
-                    type = "submit"
-                    className = "folderCreation_button"
-                    disabled = {
-                        this.validateName() 
-                    }>
-                    Create Folder
-                </button>
+                <NotefulError>
+                    <h2>Create a new folder!</h2>
+                    <div className="folderCreation__hint">* required field</div>
+                    <label htmlFor="name">Folder Name *</label> 
+                    <input 
+                        type = "text" 
+                        className = "folderCreation"
+                        name = "name" 
+                        id = "name" 
+                        onChange = {e => this.updateName(e.target.value)}/>
+                    {this.state.name.touched && (
+                        <ValidationError message = {nameError}/>
+                    )}
+                    <button
+                        type = "submit"
+                        className = "folderCreation_button"
+                        disabled = {
+                            this.validateName() 
+                        }>
+                        Create Folder
+                    </button>
+                </NotefulError>
             </form>
         )
     }

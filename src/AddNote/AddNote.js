@@ -4,6 +4,7 @@ import ValidationError from '../ValidationError';
 import config from '../config';
 import NotefulContext from '../NotefulContext';
 import moment from 'moment';
+import NotefulError from '../NotefulError';
 import './AddNote.css';
 
 export default class AddNote extends React.Component {
@@ -81,6 +82,7 @@ export default class AddNote extends React.Component {
             this.state.folderId.value = ''
             this.state.content.value = ''
             this.context.addNote(data)
+            console.log(this.context);
             this.props.history.push('/')
         })
     }
@@ -112,37 +114,39 @@ export default class AddNote extends React.Component {
          return (
             <form className = "newNote"
                 onSubmit = {(e) => this.handleSubmit(e)}>
-                <h2>Create a new note!</h2>
-                <div className="registration__hint">* required field</div>
-                <label htmlFor="name">Note Name *</label> 
-                <input 
-                    type = "text" 
-                    className = "noteCreation"
-                    name = "name" 
-                    id = "name" 
-                    onChange = {e => this.updateName(e.target.value, modified)}/>
-                {this.state.name.touched && (
-                    <ValidationError message = {nameError}/>
-                )}
-                <label htmlFor="Content">Note Content *</label> 
-                <input 
-                    type = "text" 
-                    className = "noteContentCreation"
-                    name = "Content" 
-                    id = "name" 
-                    onChange = {e => this.updateContent(e.target.value, modified)}/>
-                {this.state.name.touched && (
-                    <ValidationError message = {contentError}/>
-                )}
-                <button
-                    type = "submit"
-                    className = "noteCreation_button"
-                    disabled = {
-                        this.validateName() ||
-                        this.validateContent()
-                    }>
-                    Create Note
-                </button>
+                <NotefulError>
+                    <h2>Create a new note!</h2>
+                    <div className="registration__hint">* required field</div>
+                    <label htmlFor="name">Note Name *</label> 
+                    <input 
+                        type = "text" 
+                        className = "noteCreation"
+                        name = "name" 
+                        id = "name" 
+                        onChange = {e => this.updateName(e.target.value, modified)}/>
+                    {this.state.name.touched && (
+                        <ValidationError message = {nameError}/>
+                    )}
+                    <label htmlFor="Content">Note Content *</label> 
+                    <input 
+                        type = "text" 
+                        className = "noteContentCreation"
+                        name = "Content" 
+                        id = "name" 
+                        onChange = {e => this.updateContent(e.target.value, modified)}/>
+                    {this.state.name.touched && (
+                        <ValidationError message = {contentError}/>
+                    )}
+                    <button
+                        type = "submit"
+                        className = "noteCreation_button"
+                        disabled = {
+                            this.validateName() ||
+                            this.validateContent()
+                        }>
+                        Create Note
+                    </button>
+                </NotefulError>
             </form>
         )
     }

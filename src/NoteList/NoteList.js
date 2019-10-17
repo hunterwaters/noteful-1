@@ -4,6 +4,7 @@ import Note from '../Note/Note';
 import Button from '../Button/Button';
 import NotefulContext from '../NotefulContext';
 import {getNotesForFolder} from '../notes-helpers';
+import PropTypes from 'prop-types';
 import './NoteList.css';
 
 export default class NoteList extends React.Component {
@@ -43,3 +44,9 @@ export default class NoteList extends React.Component {
         )
     }
 }
+
+NoteList.propTypes = {
+    value: PropTypes.object.isRequired,
+    value: PropTypes.string.isRequired,
+    value: PropTypes.array.isRequired
+};

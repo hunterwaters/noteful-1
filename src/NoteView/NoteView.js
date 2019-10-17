@@ -2,6 +2,7 @@ import React from 'react';
 import Note from '../Note/Note';
 import NotefulContext from '../NotefulContext';
 import {findNote} from '../notes-helpers';
+import PropTypes from 'prop-types';
 import './NoteView.css'
 
 export default class NoteView extends React.Component {
@@ -36,4 +37,10 @@ export default class NoteView extends React.Component {
             </section>
         )
     }
+}
+
+NoteView.propTypes = {
+    value: PropTypes.object.isRequired,
+    value: PropTypes.array.isRequired,
+    value: PropTypes.string.isRequired
 }

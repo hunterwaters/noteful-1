@@ -3,6 +3,7 @@ import {NavLink, Link} from 'react-router-dom';
 import Button from '../Button/Button';
 import './NoteListFolder.css';
 import NotefulContext from '../NotefulContext'
+import PropTypes from 'prop-types';
 // import config from '../config';
 import {countNotesForFolder} from '../notes-helpers';
 
@@ -77,3 +78,9 @@ class NoteListFolder extends React.Component {
 }
 
 export default NoteListFolder
+
+NoteListFolder.propTypes = {
+    value: PropTypes.func.isRequired,
+    value: PropTypes.array.isRequired,
+    value: PropTypes.object.isRequired
+};

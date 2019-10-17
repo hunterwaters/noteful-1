@@ -44,6 +44,18 @@ class App extends React.Component {
     });
   };
 
+  addNote = note => {
+    this.setState({
+      notes: [ ...this.state.notes, note ],
+    });
+  }
+
+  addFolder = folder => {
+    this.setState({
+      folders: [ ...this.state.folders, folder],
+    });
+  }
+
   // handleDeleteFolder = folderId => {
   //   this.setState({
   //     folders: this.state.folders.filter(folder => folder.id !== folderId)

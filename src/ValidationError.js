@@ -9,3 +9,7 @@ export default function ValidationError(props) {
 
   return <></>
 }
+
+ValidationError.propTypes = {
+  value: PropTypes.string.isRequired
+};

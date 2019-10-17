@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 // import {format} from 'date-fns';
 import NotefulContext from '../NotefulContext';
 import config from '../config';
+import PropTypes from 'prop-types';
 import './Note.css';
 
 export default class Note extends React.Component {
@@ -66,3 +67,7 @@ export default class Note extends React.Component {
     }
 }
 
+Note.propTypes = {
+    value: PropTypes.func.isRequired,  
+    value: PropTypes.string.isRequired      
+};

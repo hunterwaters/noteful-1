@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '../Button/Button';
 import NotefulContext from '../NotefulContext';
 import {findNote, findFolder} from '../notes-helpers';
+import PropTypes from 'prop-types';
 // import AddNote from '../AddNote/AddNote';
 // import AddFolder from '../AddFolder/AddFolder';
 import './NoteViewFolder.css';
@@ -40,4 +41,10 @@ export default class NoteViewFolder extends React.Component {
             </div>
         )
     }
+}
+
+NoteViewFolder.propTypes = {
+    value: PropTypes.func.isRequired,
+    value: PropTypes.object.isRequired,
+    value: PropTypes.string.isRequired
 }
