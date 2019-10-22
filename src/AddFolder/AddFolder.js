@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropType from 'prop-type';
 import ValidationError from '../ValidationError';
 import config from '../config';
 import NotefulContext from '../NotefulContext';
@@ -57,8 +56,10 @@ export default class AddFolder extends React.Component {
             return res.json()
         })
         .then(data => {
-            this.state.name.value = ''
-            this.state.id = ''
+            this.setState({
+                name: {value: ''},
+                id: ''
+            })
             this.context.addFolder(data)
             console.log(this.context);
             this.props.history.push('/')
@@ -96,9 +97,11 @@ export default class AddFolder extends React.Component {
                     <button
                         type = "submit"
                         className = "folderCreation_button"
+                        style = {this.state.name.touched ? {"cursor": "pointer"} : {"cursor": "not-allowed"}}
                         disabled = {
                             this.validateName() 
-                        }>
+                        }
+                        >
                         Create Folder
                     </button>
                 </NotefulError>

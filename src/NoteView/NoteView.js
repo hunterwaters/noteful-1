@@ -40,7 +40,5 @@ export default class NoteView extends React.Component {
 }
 
 NoteView.propTypes = {
-    value: PropTypes.object.isRequired,
-    value: PropTypes.array.isRequired,
-    value: PropTypes.string.isRequired
+    match: PropTypes.object
 }

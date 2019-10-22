@@ -93,7 +93,6 @@ class App extends React.Component {
   }
 
   renderNoteRoutes() {
-    const {notes, folders} = this.state;
         return (
             <>
                 {['/', '/folder/:folderId'].map(path => (
@@ -114,7 +113,7 @@ class App extends React.Component {
                 />
                 <Route 
                   path = '/add-note' 
-                  component = {AddNote} 
+                  component = {AddNote}
                 />
             </>
         );

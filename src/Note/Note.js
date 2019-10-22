@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 import './Note.css';
 
 export default class Note extends React.Component {
+    static contextType = NotefulContext
     static defaultProps = {
         onDeleteNote: () => {}
     }
-    static contextType = NotefulContext
 
     handleClickDelete = (e) => {
         e.preventDefault() 
@@ -67,7 +67,9 @@ export default class Note extends React.Component {
     }
 }
 
-Note.propTypes = {
-    value: PropTypes.func.isRequired,  
-    value: PropTypes.string.isRequired      
+Note.propTypes = { 
+    name: PropTypes.string,
+    id: PropTypes.string,
+    modified: PropTypes.string,
+    onDeleteNote: PropTypes.func
 };

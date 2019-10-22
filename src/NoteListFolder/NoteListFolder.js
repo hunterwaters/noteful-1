@@ -2,41 +2,13 @@ import React from 'react';
 import {NavLink, Link} from 'react-router-dom';
 import Button from '../Button/Button';
 import './NoteListFolder.css';
-import NotefulContext from '../NotefulContext'
-import PropTypes from 'prop-types';
-// import config from '../config';
+import NotefulContext from '../NotefulContext';
 import {countNotesForFolder} from '../notes-helpers';
 
 class NoteListFolder extends React.Component {
-    static defaultProps = {
-        onDeleteFolder: () => {}
-    }
+    
     static contextType = NotefulContext;
 
-    // handleClickDelete = (e) => {
-    //     e.preventDefault() 
-    //     const folderId = e.target.id;
-    //     console.log(folderId);
-    //     fetch(`${config.API_ENDPOINT}/folders/${folderId}`, {
-    //         method: 'DELETE',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //     })
-    //     .then(res => {
-    //         if (!res.ok)
-    //             return res.json().then(e => Promise.reject(e))
-    //         return res.json()
-    //     })
-    //     .then(() => {
-    //         this.context.deleteFolder(folderId)
-    //         this.props.onDeleteFolder(folderId)
-    //     })
-    //     .catch(error => {
-    //         console.error({error})
-    //     })
-    // }
-    
     render() {
         const {folders = [], notes = []} = this.context
         // const handleClick = e => this.handleClickDelete(e.target.id);
@@ -78,9 +50,3 @@ class NoteListFolder extends React.Component {
 }
 
 export default NoteListFolder
-
-NoteListFolder.propTypes = {
-    value: PropTypes.func.isRequired,
-    value: PropTypes.array.isRequired,
-    value: PropTypes.object.isRequired
-};

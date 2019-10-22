@@ -1,15 +1,17 @@
 .newNote {
     color: white;
+    display: flex;
+    flex-direction: column;
 }
 
 .noteCreation {
     margin: 10px;
+    width: 25vw;
 }
 
 .noteContentCreation {
     width: 25vw;
     margin: 10px;
-    padding-top: -12.5vh;
 }
 
 .noteCreation_button {

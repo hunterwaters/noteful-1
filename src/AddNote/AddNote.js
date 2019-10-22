@@ -1,9 +1,9 @@
 import React from 'react';
-// import PropType from 'prop-type';
 import ValidationError from '../ValidationError';
 import config from '../config';
 import NotefulContext from '../NotefulContext';
 import moment from 'moment';
+import Dropdown from '../Dropdown';
 import NotefulError from '../NotefulError';
 import './AddNote.css';
 
@@ -16,7 +16,6 @@ export default class AddNote extends React.Component {
               value: '',
               touched: false
             },
-            id: '',
             modified: '',
             folderId: {
                 value: '',
@@ -44,18 +43,20 @@ export default class AddNote extends React.Component {
         console.log(this.state.modified);
     }
 
-    updateFolderId(folderId) {
-        this.setState({folderId: {value: folderId, touched: true}});
+    updateFolderId = (folder) => {
+        this.setState({folderId: {value: folder, touched: true}});
+        console.log(this.state.folderId.value);
     }
 
     handleSubmit(event) {
         event.preventDefault();
         const note = {
-            id: this.state.id,
             name: this.state.name.value,
             modified: this.state.modified,
-            content: this.state.content.value
+            content: this.state.content.value,
+            folderId: this.state.folderId.value
         }
+        console.log(note);
         const url = config.API_ENDPOINT + '/notes';
         console.log(url)
         // this.setState({ error: null })
@@ -75,12 +76,13 @@ export default class AddNote extends React.Component {
             }
             return res.json()
         })
-        .then(data => {
-            this.state.name.value = ''
-            this.state.id = ''
-            this.state.modified = ''
-            this.state.folderId.value = ''
-            this.state.content.value = ''
+        .then(data => { 
+            this.setState({
+                name: {value: ''},   
+                modified: '',     
+                folderId: {value: ''},
+                content: {value: ''},
+            })
             this.context.addNote(data)
             console.log(this.context);
             this.props.history.push('/')
@@ -89,6 +91,13 @@ export default class AddNote extends React.Component {
 
     timeStamp() {
         moment().ToDate()
+    }
+
+    validateFolderId() {
+        const folderOption = this.state.folderId.value;
+        if (folderOption === null) {
+            return 'Picking a folder is required'
+        }
     }
 
     validateName() {
@@ -110,6 +119,7 @@ export default class AddNote extends React.Component {
     render() {
         const nameError = this.validateName();
         const contentError = this.validateContent();
+        const folderIdError = this.validateFolderId();
         const modified = moment().toDate();
          return (
             <form className = "newNote"
@@ -127,7 +137,13 @@ export default class AddNote extends React.Component {
                     {this.state.name.touched && (
                         <ValidationError message = {nameError}/>
                     )}
-                    <label htmlFor="Content">Note Content *</label> 
+                    <label className = "select" htmlFor = "folderSelect">Pick a folder *</label>
+                    <Dropdown 
+                        updateFolderId = {this.updateFolderId}/>
+                    {this.state.folderId.touched && (   
+                        <ValidationError folderIdError = {folderIdError}/>
+                    )} 
+                    <label className = "contentText" htmlFor = "Content">Note Content *</label> 
                     <input 
                         type = "text" 
                         className = "noteContentCreation"
@@ -142,7 +158,8 @@ export default class AddNote extends React.Component {
                         className = "noteCreation_button"
                         disabled = {
                             this.validateName() ||
-                            this.validateContent()
+                            this.validateContent() ||
+                            this.validateFolderId()
                         }>
                         Create Note
                     </button>

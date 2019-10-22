@@ -46,7 +46,6 @@ export default class NoteList extends React.Component {
 }
 
 NoteList.propTypes = {
-    value: PropTypes.object.isRequired,
-    value: PropTypes.string.isRequired,
-    value: PropTypes.array.isRequired
+    folderId: PropTypes.string,
+    params: PropTypes.object
 };
