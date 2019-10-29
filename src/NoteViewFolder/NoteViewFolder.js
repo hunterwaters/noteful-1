@@ -42,6 +42,6 @@ export default class NoteViewFolder extends React.Component {
 }
 
 NoteViewFolder.propTypes = {
-    match: PropTypes.object,
-    history: PropTypes.object
+    match: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
 }

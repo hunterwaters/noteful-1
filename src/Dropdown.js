@@ -1,6 +1,5 @@
 import React from 'react';
 import NotefulContext from './NotefulContext';
-import PropTypes from 'prop-types';
 import './Dropdown.css';
 
 export default class Dropdown extends React.Component {
@@ -25,7 +24,3 @@ export default class Dropdown extends React.Component {
         )
     }
 }
-
-Dropdown.propTypes = { 
-    value: PropTypes.func
-};
