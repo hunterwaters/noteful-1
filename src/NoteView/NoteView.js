@@ -17,8 +17,10 @@ export default class NoteView extends React.Component {
         const {notes} = this.context
         const {noteId} = this.props.match.params
         const note = findNote(notes, noteId) || {content: ''}
-        console.log("noteView id", note.id)
+        console.log("noteView id", noteId)
         console.log("noteView findNote", findNote(notes, noteId))
+        console.log("noteView", this.context)
+        console.log("noteView", this.props.match.params) 
         return (
             <section className = 'noteView'>
                 <Note 

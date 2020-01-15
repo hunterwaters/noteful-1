@@ -24,6 +24,10 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    this.updateList()
+  }
+
+  updateList = () => {
     Promise.all([
       fetch(`${config.API_ENDPOINT}/folders`),
       fetch(`${config.API_ENDPOINT}/notes`)
@@ -45,21 +49,21 @@ class App extends React.Component {
   }
 
   handleDeleteNote = noteId => {
-    this.setState({
-      notes: this.state.notes.filter(note => note.id !== noteId)
-    });
+    this.updateList()
   };
 
   addNote = note => {
     this.setState({
       notes: [ ...this.state.notes, note ],
     });
+    this.updateList();
   }
 
   addFolder = folder => {
     this.setState({
       folders: [ ...this.state.folders, folder],
     });
+    this.updateList()
   }
 
   // handleDeleteFolder = folderId => {
