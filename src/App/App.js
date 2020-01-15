@@ -16,6 +16,12 @@ class App extends React.Component {
     notes: [],
     folders: []
   };
+  static defaultProps = {
+    history: {
+      push: () => { },
+      goBack: () => {}
+    },
+  };
 
   componentDidMount() {
     Promise.all([

@@ -6,15 +6,14 @@ export default class Dropdown extends React.Component {
     static contextType = NotefulContext;
     
     render() {
-        const {folders = [], notes = []} = this.context;
-        console.log(folders, notes);
+        const {folders = []} = this.context;
         return (
             <select 
                 className = "dropdown"
                 onChange = {e => this.props.updateFolderId(e.target.value)}>
                 {folders.map(folder => 
                     <option 
-                        key = {folder.id}
+                        key = {folder.name}
                         value = {folder.id}
                         className = "folderOption">
                         {folder.name}

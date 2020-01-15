@@ -17,7 +17,7 @@ export default class NoteViewFolder extends React.Component {
     static contextType = NotefulContext;
 
     render() {
-        const {notes, folders,} = this.context
+        const {notes, folders} = this.context
         const {noteId} = this.props.match.params
         const note = findNote(notes, noteId) || {}
         const folder = findFolder(folders, note.folderId)

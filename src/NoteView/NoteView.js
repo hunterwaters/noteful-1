@@ -11,16 +11,14 @@ export default class NoteView extends React.Component {
             params: {}
         }
     }
-    static contextType = NotefulContext
-
-    handleDeleteNote = noteId => {
-        this.props.history.push('/')
-    }
+    static contextType = NotefulContext;
 
     render() {
-        const {notes = []} = this.context
+        const {notes} = this.context
         const {noteId} = this.props.match.params
         const note = findNote(notes, noteId) || {content: ''}
+        console.log("noteView id", note.id)
+        console.log("noteView findNote", findNote(notes, noteId))
         return (
             <section className = 'noteView'>
                 <Note 

@@ -15,19 +15,12 @@ export default class AddFolder extends React.Component {
               touched: false
             },
             id: '',
-            // error: null,
+            
         };
     }
 
     updateName(name) {
         this.setState({name: {value: name, touched: true}});
-    }
-    
-    createFolderId() {
-            let min = 100000;
-            let max = 1000000;
-            let folderId = Math.floor(Math.random() * (max - min + 1) + min);
-            this.setState({id: folderId});
     }
 
     handleSubmit(event) {
@@ -37,8 +30,6 @@ export default class AddFolder extends React.Component {
             name: this.state.name.value
         }
         const url = config.API_ENDPOINT + '/folders';
-        console.log(url)
-        // this.setState({ error: null })
         fetch(url, {
             method: 'POST',
             headers: {

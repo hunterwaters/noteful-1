@@ -11,6 +11,7 @@ export default class Note extends React.Component {
     static defaultProps = {
         onDeleteNote: () => {}
     }
+    static contextType = NotefulContext;
 
     handleClickDelete = (e) => {
         e.preventDefault() 
@@ -32,12 +33,15 @@ export default class Note extends React.Component {
                 this.props.onDeleteNote(noteId)
             })
             .catch(error => {
-                console.error({error})
+                console.error('delete note', {error})
             })
     }
     
     render() {
-        const {name, id, modified} = this.props
+        const {id, name, modified} = this.props
+        console.log('name', name)
+        console.log('id', id)
+        console.log('modified', modified)
         return (
             <div className = 'note'>
                 <h2 className = 'noteTitle'>
@@ -68,8 +72,8 @@ export default class Note extends React.Component {
 }
 
 Note.propTypes = { 
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    modified: PropTypes.string.isRequired,
-    onDeleteNote: PropTypes.func.isRequired
+    name: PropTypes.string,
+    id: PropTypes.number,
+    modified: PropTypes.string,
+    onDeleteNote: PropTypes.func
 };

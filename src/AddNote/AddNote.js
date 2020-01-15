@@ -17,8 +17,8 @@ export default class AddNote extends React.Component {
               touched: false
             },
             modified: '',
-            folderId: {
-                value: '',
+            folder_id: {
+                value: '1',
                 touched: false
             },
             content: {
@@ -40,12 +40,10 @@ export default class AddNote extends React.Component {
     updateContent(content, modified) {
         this.updateModified(modified);
         this.setState({content: {value: content, touched: true}});
-        console.log(this.state.modified);
     }
 
     updateFolderId = (folder) => {
-        this.setState({folderId: {value: folder, touched: true}});
-        console.log(this.state.folderId.value);
+        this.setState({folder_id: {value: folder, touched: true}});
     }
 
     handleSubmit(event) {
@@ -54,12 +52,11 @@ export default class AddNote extends React.Component {
             name: this.state.name.value,
             modified: this.state.modified,
             content: this.state.content.value,
-            folderId: this.state.folderId.value
+            folder_id: this.state.folder_id.value
         }
         console.log(note);
         const url = config.API_ENDPOINT + '/notes';
         console.log(url)
-        // this.setState({ error: null })
         fetch(url, {
             method: 'POST',
             headers: {
@@ -80,11 +77,10 @@ export default class AddNote extends React.Component {
             this.setState({
                 name: {value: ''},   
                 modified: '',     
-                folderId: {value: ''},
+                folder_id: {value: ''},
                 content: {value: ''},
             })
             this.context.addNote(data)
-            console.log(this.context);
             this.props.history.push('/')
         })
     }
@@ -94,7 +90,7 @@ export default class AddNote extends React.Component {
     }
 
     validateFolderId() {
-        const folderOption = this.state.folderId.value;
+        const folderOption = this.state.folder_id.value;
         if (folderOption === null) {
             return 'Picking a folder is required'
         }
@@ -119,7 +115,7 @@ export default class AddNote extends React.Component {
     render() {
         const nameError = this.validateName();
         const contentError = this.validateContent();
-        const folderIdError = this.validateFolderId();
+        const folder_idError = this.validateFolderId();
         const modified = moment().toDate();
          return (
             <form className = "newNote"
@@ -130,9 +126,8 @@ export default class AddNote extends React.Component {
                     <label htmlFor="name">Note Name *</label> 
                     <input 
                         type = "text" 
-                        className = "noteCreation"
-                        name = "name" 
-                        id = "name" 
+                        className = "noteCreation" 
+                        id = "makeName"
                         onChange = {e => this.updateName(e.target.value, modified)}/>
                     {this.state.name.touched && (
                         <ValidationError message = {nameError}/>
@@ -140,15 +135,15 @@ export default class AddNote extends React.Component {
                     <label className = "select" htmlFor = "folderSelect">Pick a folder *</label>
                     <Dropdown 
                         updateFolderId = {this.updateFolderId}/>
-                    {this.state.folderId.touched && (   
-                        <ValidationError folderIdError = {folderIdError}/>
+                    {this.state.folder_id.touched && (   
+                        <ValidationError folder_idError = {folder_idError}/>
                     )} 
                     <label className = "contentText" htmlFor = "Content">Note Content *</label> 
                     <input 
                         type = "text" 
                         className = "noteContentCreation"
                         name = "Content" 
-                        id = "name" 
+                        id = "makeContent" 
                         onChange = {e => this.updateContent(e.target.value, modified)}/>
                     {this.state.name.touched && (
                         <ValidationError message = {contentError}/>
