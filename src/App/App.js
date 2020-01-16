@@ -9,7 +9,7 @@ import NotefulContext from '../NotefulContext';
 import config from '../config';
 import AddNote from '../AddNote/AddNote';
 import AddFolder from '../AddFolder/AddFolder';
-import '../App/App.css';
+import './App.css';
 
 class App extends React.Component {
   state = {
@@ -29,8 +29,8 @@ class App extends React.Component {
 
   updateList = () => {
     Promise.all([
-      fetch(`${config.API_ENDPOINT}/folders`),
-      fetch(`${config.API_ENDPOINT}/notes`)
+      fetch(`${config.API_ENDPOINT}folders`),
+      fetch(`${config.API_ENDPOINT}notes`)
     ])
       .then(([foldersRes, notesRes]) => {
         if(!notesRes.ok)
@@ -49,21 +49,21 @@ class App extends React.Component {
   }
 
   handleDeleteNote = noteId => {
-    this.updateList()
+    this.setState({
+      notes: this.state.notes.filter(note => note.id !== noteId)
+    });
   };
 
   addNote = note => {
     this.setState({
       notes: [ ...this.state.notes, note ],
     });
-    this.updateList();
   }
 
   addFolder = folder => {
     this.setState({
       folders: [ ...this.state.folders, folder],
     });
-    this.updateList()
   }
 
   // handleDeleteFolder = folderId => {
@@ -73,9 +73,6 @@ class App extends React.Component {
   // }
 
   renderFolderRoutes() {
-    const {notes, folders} = this.state;
-    console.log(notes);
-    console.log(folders);
     return (
       <>
         {['/', '/folder/:folderId'].map(path => (

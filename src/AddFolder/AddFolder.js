@@ -29,7 +29,7 @@ export default class AddFolder extends React.Component {
             id: this.state.id,
             name: this.state.name.value
         }
-        const url = config.API_ENDPOINT + '/folders';
+        const url = config.API_ENDPOINT + 'folders';
         fetch(url, {
             method: 'POST',
             headers: {
@@ -52,7 +52,6 @@ export default class AddFolder extends React.Component {
                 id: ''
             })
             this.context.addFolder(data)
-            console.log(this.context);
             this.props.history.push('/')
         })
     }
