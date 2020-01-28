@@ -48,8 +48,8 @@ export default class AddFolder extends React.Component {
         })
         .then(data => {
             this.setState({
-                name: {value: ''},
-                id: ''
+                name: {value: data.name},
+                id: data.id
             })
             this.context.addFolder(data)
             this.props.history.push('/')

@@ -13,7 +13,7 @@ export default class Dropdown extends React.Component {
                 onChange = {e => this.props.updateFolderId(e.target.value)}>
                 {folders.map(folder => 
                     <option 
-                        key = {folder.name}
+                        key = {folder.id}
                         value = {folder.id}
                         className = "folderOption">
                         {folder.name}

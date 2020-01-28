@@ -22,8 +22,8 @@ export default class NoteList extends React.Component {
         return (
             <section className = 'noteList'>
                 <ul className = 'noteListUl'>
-                    {notesForFolder.map(note =>
-                        <li key = {note.id}>
+                    {notesForFolder.map((note, i) =>
+                        <li key = {i}>
                             <Note
                                 id = {note.id}
                                 name = {note.name}

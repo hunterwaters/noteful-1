@@ -30,6 +30,7 @@ export default class Note extends React.Component {
             })
             .then(() => {
                 this.context.deleteNote(noteId)
+                window.history.back()
             })
             .catch(error => {
                 console.error('delete note', {error})

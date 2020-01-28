@@ -28,6 +28,11 @@ export default class AddNote extends React.Component {
         };
     }
 
+    linkTo() {
+        console.log('redirected via linkTo');
+        this.props.router.push('/');
+    }
+
     updateName(name, modified) {
         this.updateModified(modified);
         this.setState({name: {value: name, touched: true}});
@@ -154,7 +159,8 @@ export default class AddNote extends React.Component {
                             this.validateName() ||
                             this.validateContent() ||
                             this.validateFolderId()
-                        }>
+                        }
+                        onSubmit = {e => this.linkTo()}>
                         Create Note
                     </button>
                 </NotefulError>
