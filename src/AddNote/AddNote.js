@@ -79,11 +79,12 @@ export default class AddNote extends React.Component {
         })
         .then(data => { 
             this.setState({
-                name: {value: ''},   
-                modified: '',     
-                folder_id: {value: ''},
-                content: {value: ''},
+                name: {value: data.name},   
+                modified: data.modified,     
+                folder_id: {value: data.folder_id},
+                content: {value: data.content},
             })
+            console.log(this.state, 'state after post')
             this.context.addNote(data)
             this.props.history.push('/')
         })
