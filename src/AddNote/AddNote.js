@@ -24,7 +24,7 @@ export default class AddNote extends React.Component {
             content: {
                 value: '',
                 touched: false
-            }
+            },
         };
     }
 

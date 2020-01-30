@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 // import {format} from 'date-fns';
 import NotefulContext from '../NotefulContext';
 import config from '../config';
@@ -9,7 +9,10 @@ import './Note.css';
 export default class Note extends React.Component {
     static contextType = NotefulContext
     static defaultProps = {
-        onDeleteNote: () => {}
+        onDeleteNote: () => {},
+        history: {
+            push: () => { }
+        },
     }
     static contextType = NotefulContext;
 
@@ -30,7 +33,6 @@ export default class Note extends React.Component {
             })
             .then(() => {
                 this.context.deleteNote(noteId)
-                this.props.history.push('/')
             })
             .catch(error => {
                 console.error('delete note', {error})
@@ -39,6 +41,10 @@ export default class Note extends React.Component {
     
     render() {
         const {id, name, modified} = this.props
+        if (!this.props.id) {
+            return <Redirect to = '/' />
+        }
+        
         return (
             <div className = 'note'>
                 <h2 className = 'noteTitle'>

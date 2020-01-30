@@ -14,7 +14,8 @@ import './App.css';
 class App extends React.Component {
   state = {
     notes: [],
-    folders: []
+    folders: [],
+    goHome: false
   };
   static defaultProps = {
     history: {
