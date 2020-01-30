@@ -84,7 +84,6 @@ export default class AddNote extends React.Component {
                 folder_id: {value: data.folder_id},
                 content: {value: data.content},
             })
-            console.log(this.state, 'state after post')
             this.context.addNote(data)
             this.props.history.push('/')
         })
